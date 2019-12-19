@@ -1,25 +1,49 @@
-#Guess the number game
-
 import random
-secretNumber = random.randint(1,100)
-print("I am thinking of a number between 1 and 100.")
 
-#Ask for a guess
+print("Number Guessing Game")
+print("")
 
-x = range(1,7,1)
-for guessTally in x:
-    print("Make a guess:")
-    guess = int(input())
-
-    if guess < secretNumber:
-        print("Too Low!")
-    elif guess > secretNumber:
-        print("Too High!")
+# start a loop
+flag = True
+while flag:
+    # user set the max
+    num = input("Type your desired number range max (min is 1)")
+    # verify input is a number
+    if num.isdigit():
+        print("Game is Starting...")
+        num = int(num)
+        # exit loop
+        flag = False
+    # validation
     else:
-        break
-#Indentations matter, make sure to indent blocks properly or things will not work!
-if guess == secretNumber:
-    print("Correct! You guessed correctly in " + str(guessTally) + " guesses.")
-else:
-    print("Wrong! The number was " + str(secretNumber))
-        
+        print("Invalid input. Please type a positive number")
+# generate answer
+answer = random.randint(1,num)
+
+guess = None
+count = 1
+
+# game loop
+while guess != answer:
+    # Collect User input
+    guess = input("Guess the number between 1 and " + str(num) + ": ")
+    # validate
+    if guess.isdigit():
+        guess = int(guess)
+    else:
+        print("Invalid input. Please type a positive number")
+        guess = input("Guess the number between 1 and " + str(num) + ": ")
+    # win condition
+    if guess == answer:
+        print ("Correct.")
+    # incorrect condition
+    else:
+        print("Incorrect.")
+        count += 1
+        # generate hint
+        if guess > answer:
+            print("The answer is lower.")
+        else:
+            print("The answer is higher.")
+    
+print("You guessed " + str(count) + " time(s).")
